@@ -13,7 +13,7 @@ export const Table = () => {
   const [{ _, isOver }, drop] = useDrop(
     () => ({
       accept: ['toolbar_image', 'table_image'],
-      drop: addImage,
+      drop: addOrReplaceItem,
       collect: (monitor) => ({
         canDrop: monitor.canDrop(),
         isOver: monitor.isOver(),
@@ -48,24 +48,26 @@ export const Table = () => {
     reader.readAsText(file);
   };
 
-  function addImage(draggedItem, monitor) {
-    const { x, y } = monitor.getClientOffset();
-    let relativeX = 0;
-    let relativeY = 0;
-
-    if (tableRef?.current) {
-      const rect = tableRef.current.getBoundingClientRect();
-      relativeX = x - rect.left;
-      relativeY = y - rect.top;
-    }
-
+  function addOrReplaceItem(draggedItem, monitor) {
     if (draggedItem.type === 'toolbar_image') {
-      const newId = Date.now();
+      // Добавляем картинку с ToolBar
+      const newId = Date.now(); // id
+      let resultPos = { x: 0, y: 0 };
+
+      if (tableRef?.current) {
+        const { x, y } = monitor.getClientOffset();
+        const rect = tableRef.current.getBoundingClientRect();
+        resultPos.x = x - rect.left - draggedItem.offset.x;
+        resultPos.y = y - rect.top - draggedItem.offset.y;
+      } // координаты курсора - координаты картинки - смещение курсора при захвате картинки
+      // что бы она ровно размещалась
+
       dispatch({
         type: 'ADD_ITEM',
-        payload: { ...draggedItem, id: newId, position: { x: relativeX, y: relativeY } },
+        payload: { ...draggedItem, id: newId, position: resultPos },
       });
     } else {
+      // Переносим картинку уже на Table
       function getNewPos(left, top) {
         const delta = monitor.getDifferenceFromInitialOffset();
         if (delta) {
@@ -73,12 +75,7 @@ export const Table = () => {
           let newY = Math.round(top + delta.y);
 
           function validateRange(coordinate, minR, maxR) {
-            if (coordinate < minR || coordinate > maxR) {
-              console.log(coordinate < minR ? minR : maxR);
-
-              return coordinate < minR ? minR : maxR;
-            }
-            console.log(coordinate, minR, maxR);
+            if (coordinate < minR || coordinate > maxR) return coordinate < minR ? minR : maxR;
             return coordinate;
           }
 
@@ -103,6 +100,7 @@ export const Table = () => {
   return (
     <section className={styles.container}>
       <h1>Область размещения</h1>
+      <p>dbclick удаляет элемент</p>
       <div
         ref={(node) => {
           drop(node);
