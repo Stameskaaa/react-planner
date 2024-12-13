@@ -82,7 +82,8 @@ export const Table = () => {
           return {
             x: validateRange(newX, 0, tableRef?.current.offsetWidth - ICON_WIDTH),
             y: validateRange(newY, 0, tableRef?.current.offsetHeight - ICON_HEIGHT),
-          };
+          }; // Так как мы уже в дроп зоне, то определяем
+          // координаты относительно предыдущего местоположения
         }
         return { x: left, y: top };
       }

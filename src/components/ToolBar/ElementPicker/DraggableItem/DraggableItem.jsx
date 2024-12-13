@@ -2,7 +2,7 @@ import { useDrag } from 'react-dnd';
 import styles from './DragableItem.module.scss';
 import { useDispatch } from 'react-redux';
 import { ICON_WIDTH, ICON_HEIGHT } from '../../../../constant/constant';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 
 export const DraggableItem = ({ type, img, position, id }) => {
   const dragRef = useRef(null);
@@ -14,6 +14,8 @@ export const DraggableItem = ({ type, img, position, id }) => {
         if (type === 'toolbar_image') {
           const currItem = dragRef.current.getBoundingClientRect();
           const cursor = monitor.getClientOffset();
+          console.log(1);
+
           return {
             id,
             img,
@@ -28,7 +30,7 @@ export const DraggableItem = ({ type, img, position, id }) => {
             type,
             position,
           };
-        }
+        } // функция которая применяется dragStart
       },
       collect: (monitor) => ({
         isDragging: monitor.isDragging(),
