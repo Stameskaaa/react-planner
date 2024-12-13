@@ -1,0 +1,22 @@
+.container {
+  width: calc(100% - 40px);
+  max-width: 1000px;
+  height: 800px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  color: black;
+  padding: 20px;
+  box-sizing: border-box;
+  margin: 20px;
+  overflow: auto;
+  h1 {
+    margin-bottom: 20px;
+  }
+}
+
+.table {
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  height: calc(100% - 62px);
+  min-width: 960px;
+  background-color: white;
+  position: relative;
+}

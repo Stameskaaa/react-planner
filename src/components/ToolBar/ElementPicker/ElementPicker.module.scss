@@ -1,0 +1,13 @@
+.container {
+  width: 100%;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+  min-height: 150px;
+  padding: 10px;
+  box-sizing: border-box;
+  & > div:first-child {
+    display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    gap: 10px;
+  }
+}
