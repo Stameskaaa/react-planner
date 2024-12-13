@@ -4,6 +4,7 @@ import styles from './Table.module.scss';
 import { useDrop } from 'react-dnd';
 import { useSelector, useDispatch } from 'react-redux';
 import { saveAs } from 'file-saver';
+import { ICON_WIDTH, ICON_HEIGHT } from '../../constant/constant';
 
 export const Table = () => {
   const itemList = useSelector((state) => state.items.itemList);
@@ -68,7 +69,23 @@ export const Table = () => {
       function getNewPos(left, top) {
         const delta = monitor.getDifferenceFromInitialOffset();
         if (delta) {
-          return { x: Math.round(left + delta.x), y: Math.round(top + delta.y) };
+          let newX = Math.round(left + delta.x);
+          let newY = Math.round(top + delta.y);
+
+          function validateRange(coordinate, minR, maxR) {
+            if (coordinate < minR || coordinate > maxR) {
+              console.log(coordinate < minR ? minR : maxR);
+
+              return coordinate < minR ? minR : maxR;
+            }
+            console.log(coordinate, minR, maxR);
+            return coordinate;
+          }
+
+          return {
+            x: validateRange(newX, 0, tableRef?.current.offsetWidth - ICON_WIDTH),
+            y: validateRange(newY, 0, tableRef?.current.offsetHeight - ICON_HEIGHT),
+          };
         }
         return { x: left, y: top };
       }
