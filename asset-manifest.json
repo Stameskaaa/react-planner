@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/react-planner/static/css/main.86ab2e5b.css",
+    "main.js": "/react-planner/static/js/main.4c0b93e3.js",
+    "static/js/488.69c9acba.chunk.js": "/react-planner/static/js/488.69c9acba.chunk.js",
+    "index.html": "/react-planner/index.html",
+    "main.86ab2e5b.css.map": "/react-planner/static/css/main.86ab2e5b.css.map",
+    "main.4c0b93e3.js.map": "/react-planner/static/js/main.4c0b93e3.js.map",
+    "488.69c9acba.chunk.js.map": "/react-planner/static/js/488.69c9acba.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.86ab2e5b.css",
+    "static/js/main.4c0b93e3.js"
+  ]
+}
